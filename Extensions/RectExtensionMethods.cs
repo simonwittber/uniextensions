@@ -90,10 +90,12 @@ namespace DifferentMethods.Extensions
             result.y += pivotPoint.y;
             return result;
         }
+
         public static Rect ScaleSizeBy(this Rect rect, Vector2 scale)
         {
             return rect.ScaleSizeBy(scale, rect.center);
         }
+
         public static Rect ScaleSizeBy(this Rect rect, Vector2 scale, Vector2 pivotPoint)
         {
             Rect result = rect;
@@ -106,6 +108,15 @@ namespace DifferentMethods.Extensions
             result.x += pivotPoint.x;
             result.y += pivotPoint.y;
             return result;
+        }
+
+        public static Rect Encapsulate(this Rect rect, Rect other)
+        {
+            rect.xMin = Mathf.Min(rect.xMin, other.xMin);
+            rect.yMin = Mathf.Min(rect.yMin, other.yMin);
+            rect.xMax = Mathf.Max(rect.xMax, other.xMax);
+            rect.yMax = Mathf.Max(rect.yMax, other.yMax);
+            return rect;
         }
 
 
