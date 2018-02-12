@@ -38,7 +38,7 @@ namespace DifferentMethods.Extensions.Serialization
         public void Set(string name, object obj)
         {
             var type = obj.GetType();
-            if (type.IsSubclassOf(typeof(UnityEngine.Object)))
+            if (type == typeof(UnityEngine.Object) || type.IsSubclassOf(typeof(UnityEngine.Object)))
                 objects.Set(name, obj);
             else if (type == typeof(float))
                 floats.Set(name, obj);
@@ -72,7 +72,7 @@ namespace DifferentMethods.Extensions.Serialization
         public object Get(string name, System.Type type)
         {
             object obj = null;
-            if (type.IsSubclassOf(typeof(UnityEngine.Object)))
+            if (type == typeof(UnityEngine.Object) || type.IsSubclassOf(typeof(UnityEngine.Object)))
                 obj = objects.Get(name);
             else if (type == typeof(float))
                 obj = floats.Get(name);
@@ -95,7 +95,7 @@ namespace DifferentMethods.Extensions.Serialization
             else if (type == typeof(LayerMaskMap))
                 obj = layerMasks.Get(name);
             else
-                throw new NotSupportedException($"Type {type.Name} is not supported.");
+                throw new NotSupportedException($"Type {type.AssemblyQualifiedName} is not supported. ({name})");
             if (obj == null && type.IsValueType)
                 return Activator.CreateInstance(type);
             return obj;

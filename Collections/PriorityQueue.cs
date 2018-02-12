@@ -52,7 +52,7 @@ namespace DifferentMethods.Extensions.Collections
             }
         }
 
-        internal void Remove(T item)
+        public void Remove(T item)
         {
             items.Remove(item);
         }
