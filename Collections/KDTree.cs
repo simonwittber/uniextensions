@@ -18,6 +18,7 @@
 using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace DifferentMethods.Extensions.Collections
 {
@@ -42,10 +43,17 @@ namespace DifferentMethods.Extensions.Collections
         //	Make a new tree from a list of points.
         public static KDTree MakeFromPoints(params Vector3[] points)
         {
-            int[] indices = Iota(points.Length);
+            int[] indices = MakeIntArray(points.Length);
             return MakeFromPointsInner(0, 0, points.Length - 1, points, indices);
         }
 
+        //	Make a new tree from a list of points.
+        public static KDTree MakeFromPoints(IEnumerable<Vector3> pointsEnumerable)
+        {
+            var points = pointsEnumerable.ToArray();
+            int[] indices = MakeIntArray(points.Length);
+            return MakeFromPointsInner(0, 0, points.Length - 1, points, indices);
+        }
 
         //	Recursively build a tree by separating points at plane boundaries.
         static KDTree MakeFromPointsInner(int depth, int stIndex, int enIndex, Vector3[] points, int[] inds)
@@ -156,7 +164,7 @@ namespace DifferentMethods.Extensions.Collections
         }
 
 
-        public static int[] Iota(int num)
+        public static int[] MakeIntArray(int num)
         {
             int[] result = new int[num];
 
