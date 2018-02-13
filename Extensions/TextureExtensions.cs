@@ -1,9 +1,70 @@
 ﻿using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 
 public static class TextureExtensions
 {
+    public static Color[] GetPalette(this Texture2D sourceImage, int count = 4)
+    {
+        Color[] pixels;
+        pixels = sourceImage.GetPixels();
+        var palette = new List<Color>();
+        var cuts = new Queue<Color[]>();
+        cuts.Enqueue(pixels);
+        var loops = (int)Mathf.Pow(2, count);
+        while (cuts.Count < loops)
+        {
+            var p = cuts.Dequeue();
+            Color[] top, bottom;
+            ExtractColors(p, out top, out bottom);
+            cuts.Enqueue(top);
+            cuts.Enqueue(bottom);
+        }
+
+        while (cuts.Count > 0)
+        {
+            var cut = cuts.Dequeue();
+            var color = (Vector4)Color.black;
+            foreach (var i in cut)
+                color += (Vector4)i;
+            color /= cut.Length;
+            color.w = 1;
+            palette.Add(color);
+        }
+        return palette.ToArray();
+    }
+
+    static void ExtractColors(Color[] pixels, out Color[] top, out Color[] bottom)
+    {
+        var min = Color.white;
+        var max = Color.black;
+        foreach (var i in pixels)
+        {
+            min.r = Mathf.Min(min.r, i.r);
+            min.g = Mathf.Min(min.g, i.g);
+            min.b = Mathf.Min(min.b, i.b);
+            max.r = Mathf.Min(max.r, i.r);
+            max.g = Mathf.Min(max.g, i.g);
+            max.b = Mathf.Min(max.b, i.b);
+        }
+        var range = max - min;
+        var channel = 2;
+        if (range.r >= range.g && range.r >= range.b)
+            channel = 0;
+        else if (range.g >= range.b)
+            channel = 1;
+        var keys = new float[pixels.Length];
+        for (var i = 0; i < pixels.Length; i++)
+            keys[i] = pixels[i][channel];
+        System.Array.Sort(keys, pixels);
+        var size = pixels.Length / 2;
+        top = new Color[size];
+        bottom = new Color[size];
+        System.Array.Copy(pixels, 0, top, 0, size);
+        System.Array.Copy(pixels, size, bottom, 0, size);
+    }
+
     public static void Blur(this Texture2D texture, int iterations)
     {
         var r = new float[texture.width, texture.height];
