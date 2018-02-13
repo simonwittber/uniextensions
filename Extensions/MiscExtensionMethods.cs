@@ -1,9 +1,9 @@
-using UnityEngine;
 using System.Collections;
 using System.Text;
 
 namespace DifferentMethods.Extensions
 {
+
     public static class MiscExtensionMethods
     {
         /// <summary>

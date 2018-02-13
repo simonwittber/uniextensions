@@ -2,7 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 
-namespace DifferentMethods.Extensions.Collections
+namespace DifferentMethods.Extensions.Collections.Spatial
 {
 
     public class SpatialHash
