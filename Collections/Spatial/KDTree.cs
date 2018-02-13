@@ -20,7 +20,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace DifferentMethods.Extensions.Collections
+namespace DifferentMethods.Extensions.Collections.Spatial
 {
     public class KDTree
     {
