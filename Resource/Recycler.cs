@@ -7,9 +7,9 @@ namespace DifferentMethods.Extensions.Resource
     {
         public PrefabPool pool;
 
-        public void Recycle ()
+        public void Recycle()
         {
-            pool.Recycle (gameObject);
+            pool.Recycle(gameObject);
         }
     }
 }
