@@ -11,6 +11,7 @@ namespace DifferentMethods
     {
         public Vector3 velocity;
         public Vector3 angles;
+        public CharacterController characterController;
 
         Vector3 mousePosition;
         Vector3 mouseDelta;
@@ -20,10 +21,12 @@ namespace DifferentMethods
         {
             mousePosition = Input.mousePosition;
             originRotation = transform.localRotation;
+            characterController = GetComponent<CharacterController>();
         }
 
         void Update()
         {
+
             mouseDelta = Input.mousePosition - mousePosition;
             mousePosition = Input.mousePosition;
 
@@ -47,11 +50,19 @@ namespace DifferentMethods
                 angles.y += mouseDelta.x;
             }
 
-            transform.Translate(velocity * Time.deltaTime, Space.Self);
+            if (characterController != null)
+            {
+                characterController.Move(velocity);
+            }
+            else
+            {
 
-            var yaw = Quaternion.AngleAxis(angles.y, Vector3.up);
-            var pitch = Quaternion.AngleAxis(angles.x, Vector3.left);
-            transform.localRotation = originRotation * yaw * pitch;
+                transform.Translate(velocity * Time.deltaTime, Space.Self);
+
+                var yaw = Quaternion.AngleAxis(angles.y, Vector3.up);
+                var pitch = Quaternion.AngleAxis(angles.x, Vector3.left);
+                transform.localRotation = originRotation * yaw * pitch;
+            }
 
         }
     }

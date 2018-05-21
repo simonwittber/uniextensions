@@ -13,6 +13,8 @@ namespace DifferentMethods.Extensions.Collections
             buffer = new T[bufferSize];
         }
 
+        public int Count { get; private set; }
+
         public bool Dequeue(out T item)
         {
             if (read == write)
@@ -25,6 +27,7 @@ namespace DifferentMethods.Extensions.Collections
                 read = 0;
             else
                 read = read + 1;
+            Count--;
             return true;
         }
 
@@ -39,6 +42,7 @@ namespace DifferentMethods.Extensions.Collections
                 return false;
             buffer[write] = item;
             write = newidx;
+            Count++;
             return true;
         }
 
