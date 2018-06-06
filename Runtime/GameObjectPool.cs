@@ -50,9 +50,7 @@ namespace DifferentMethods.Extensions
         static public T Take<T>(GameObject prefab, Transform matchTo = null, float lifetime = 0) where T : Component
         {
             var g = Take(prefab, matchTo, lifetime);
-            var c = g.GetComponent<T>();
-            if (c == null) c = g.AddComponent<T>();
-            return c;
+            return g.GetComponent<T>();
         }
 
         static public GameObject Take(GameObject prefab, Transform matchTo = null, float lifetime = 0)
@@ -91,7 +89,10 @@ namespace DifferentMethods.Extensions
             if (Instance.instances.TryGetValue(instanceKey, out pi))
                 _Return(pi, invokeCallback);
             else
-                Debug.LogError("Cannot return an instance that was not taken from a pool.");
+            {
+                Debug.LogWarning("Cannot return an instance that was not taken from a pool, destroying instead.");
+                Destroy(go);
+            }
         }
 
         static void _Return(PooledInstance pi, bool invokeCallback)

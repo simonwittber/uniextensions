@@ -67,4 +67,15 @@ public static class Vector3ExtensionMethods
         return new Vector2(vector.y, vector.z);
     }
 
+    /// <summary>
+    /// Clamps vector to +- bounds
+    /// </summary>
+    /// <param name="vector"></param>
+    /// <param name="bounds"></param>
+    /// <returns></returns>
+    public static Vector3 Clamp(this Vector3 vector, Vector3 bounds)
+    {
+        return new Vector3(Mathf.Clamp(vector.x, -bounds.x, bounds.x), Mathf.Clamp(vector.y, -bounds.y, bounds.y), Mathf.Clamp(vector.z, -bounds.z, bounds.z));
+    }
+
 }

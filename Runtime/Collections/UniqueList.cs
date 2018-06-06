@@ -4,13 +4,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System;
 
-/// <summary>
-/// A UniqueList is like a normal List, but contains only unique items
-/// </summary>
+
 namespace DifferentMethods.Extensions.Collections
 {
-
-    class UniqueList<T> : List<T>
+    /// <summary>
+    /// A UniqueList is like a normal List, but contains only unique items
+    /// </summary>
+    public class UniqueList<T> : List<T>
     {
         HashSet<T> itemSet = new HashSet<T>();
 

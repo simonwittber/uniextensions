@@ -3,14 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System;
 
-/// <summary>
-/// A Fixed list is simlar to a regular generic list, except that it is of a fixed size, and you can
-/// access the internal array of values via the .Buffer property.
-/// </summary>
 
 namespace DifferentMethods.Extensions.Collections
 {
-
+    /// <summary>
+    /// A Fixed list is simlar to a regular generic list, except that it is of a fixed size, and you can
+    /// access the internal array of values via the .Buffer property.
+    /// </summary>
     public class FixedList<T> : System.Collections.Generic.IList<T> where T : System.IComparable
     {
         public T[] Buffer

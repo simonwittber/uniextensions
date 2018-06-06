@@ -4,14 +4,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System;
 
-/// <summary>
-/// A HashList is like a normal List, but with a very fast Contains method, which comes at the expense of using 2x memory.
-/// </summary>
+
 
 namespace DifferentMethods.Extensions.Collections
 {
-
-    class HashList<T> : List<T>
+    /// <summary>
+    /// A HashList is like a normal List, but with a O(1) Contains method, which comes at the expense of using 2x memory.
+    /// </summary>
+    public class HashList<T> : List<T>
     {
         HashSet<T> itemSet = new HashSet<T>();
 
@@ -37,7 +37,6 @@ namespace DifferentMethods.Extensions.Collections
             base.Clear();
             itemSet.Clear();
         }
-
     }
 }
 
